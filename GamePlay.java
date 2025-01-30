@@ -7,37 +7,19 @@ public class GamePlay {
 		System.out.println("What is your name? ");
 		String First_name = scanner.nextLine();
 		
-		System.out.println("Do you want to enter a last name? ");
-		String Answer = scanner.nextLine();
-		String Answer_less = Answer.substring(0,1);
-		String Answer_upper = Answer_less.toUpperCase();
-		boolean Answer_tf = Answer_to_question(Answer_upper);
+		System.out.println("Do you want to enter a last name? Leave blank if not");
+		String Last_name = scanner.nextLine();
 		
-		if ( Answer_tf == true) {
-			System.out.println("What is your last name? ");
-			String Last_name = scanner.nextLine();
-			Person player = new Person(First_name, Last_name);
-		}
-		else {
-			Person player = new Person(First_name);
-		}
+		Person new_player = new Person(First_name, Last_name);
+		//System.out.println(new_player.getFirst_name());
+		Numbers number_guess = new Numbers();
+		number_guess.generateNumber();
 		
-		Numbers NumberGenerated = new Numbers();
-		
-		while( Guess != true){
-			System.out.println(First_name +" what is your guess?");
-			int Guess_int = scanner.nextInt();
-			boolean Guess = Numbers.compareNumber(Guess_int);
+		while( Guess == false) {
+			System.out.println(new_player.getFirst_name() + new_player.getLast_name() + ", what number did I pick between 0 and 100? ");
+			int Guess_number = scanner.nextInt();
+			Guess = number_guess.compareNumber(Guess_number);
 		}
 		
-	}	
-		public static boolean Answer_to_question(String answer) {
-			if (answer.equals("Y")) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-
+	}
 }

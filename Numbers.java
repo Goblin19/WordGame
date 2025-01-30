@@ -3,7 +3,6 @@ public class Numbers {
 	private int randomNum;
 	
 	public static void main(String[] args) {
-		generateNumber();
 	}
 
 	public void Number_S(int number){
@@ -14,11 +13,11 @@ public class Numbers {
 		return this.randomNum;
 	}
 	
-	public static int generateNumber() {
+	public void generateNumber() {
 		Random Number = new Random();
 		int Number_random;
 		Number_random = Number.nextInt(101);
-		return Number_random;
+		this.randomNum = Number_random;
 	}
 	
 	boolean compareNumber(int guess) {
