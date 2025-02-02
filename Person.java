@@ -1,7 +1,7 @@
 
 public class Person {
-	private String last_name;
-	private String first_name;
+	private static String last_name;
+	private static String first_name;
 	
 	public static void main(String[] args) {
 		
@@ -12,7 +12,7 @@ public class Person {
 	}
 	
 	public void Last_Name_S(String name) {
-		this.setLast_name(name);
+		this.setLast_name(" " + name);
 	}
 
 	public String First_Name_G(String name) {
@@ -31,7 +31,12 @@ public class Person {
 	
 	Person(String F_Name, String L_Name){
 		this.setFirst_name(F_Name);
-		this.setLast_name(L_Name);
+		if (L_Name == "") {
+			this.setLast_name(L_Name);
+		}
+		else {
+			this.setLast_name(" " + L_Name);
+		}
 	}
 
 	public String getFirst_name() {
@@ -39,15 +44,19 @@ public class Person {
 	}
 
 	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+		Person.first_name = first_name;
 	}
 
 	public String getLast_name() {
-		return last_name;
+		return Person.last_name;
 	}
 
 	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+		Person.last_name = last_name;
 	}
-
+	
+	public String toString() {
+		String Line = (Person.first_name + Person.last_name);
+		return Line;
+	}
 }
