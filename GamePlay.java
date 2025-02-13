@@ -10,7 +10,6 @@ public class GamePlay {
 		//Initializing main variables & first name
 		Players[] currentPlayers = new Players[3];
 		Hosts Host = new Hosts("Bob", "Barker");
-		Host.randomizeNum();
 		Scanner scanner = new Scanner(System.in);
 		
 		//Assigning Players loop
@@ -26,9 +25,7 @@ public class GamePlay {
 			Players++;
 		}
 		
-		
-		Host.Hosts_Host("Bob", "Barker");
-		Numbers number_guess = new Numbers();
+		Host.Host_Phrase();
 		Turn Turn = new Turn();
 		
 		//Gameplay
@@ -40,9 +37,11 @@ public class GamePlay {
 				Play_again = Play_again_scanner;
 			}
 			if (Play_again.equals("y")) {
+				if (Plays >= 1) {
+					Host.Host_Phrase();
+				}
 				Players = 0;
 				Guess = false;
-				Host.randomizeNum();
 				while( Guess == false) {
 					if (Players == 3) {
 						Players = 0;
