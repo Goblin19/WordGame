@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class Hosts extends Person {
 	String F_name;
 	String L_name;
@@ -7,13 +6,10 @@ public class Hosts extends Person {
 			super(f_Name, l_Name);
 	}
 
-	public void Host_Phrase(){
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter the phrase for the players to guess:");
-		String inputString = scanner.nextLine();
-		Phrases.gamePhrase = inputString;
-		Phrases phrases_different = new Phrases();
-		phrases_different.setPlayPhrase();
+	public void Host_Phrase(String Phrase){
+		Phrases phrases = new Phrases();
+		Phrases.gamePhrase = Phrase;
+		phrases.setPlayPhrase();
 	}
 	
 	

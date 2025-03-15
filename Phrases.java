@@ -1,4 +1,5 @@
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class Phrases {
 	static String gamePhrase;
@@ -16,7 +17,6 @@ public class Phrases {
 				playingPhrase = playingPhrase.replaceFirst(playingPhrase.substring(i, i+1), "_");
 			}
 		}
-		System.out.println("The phrase to guess is: " + playingPhrase);
 	}
 	
 	
@@ -50,6 +50,7 @@ public class Phrases {
 					String NewPhrase = new String(CurrentPlayingPhrase);
 					//System.out.println(NewPhrase);
 					playingPhrase = NewPhrase;
+					//Gui.currentPlayingPhrase.setText(playingPhrase);
 				}
 			}
 		}
@@ -63,22 +64,25 @@ public class Phrases {
 			int Money_change = Cash.displayWinnings(object, Guess_player);
 			int Money_new = object.Money_getter() + Money_change;
 			object.Money_setter(Money_new);
-			System.out.println(object.toString());
+			//System.out.println(object.toString());
+			JOptionPane.showMessageDialog(null, object.toString());
 		}
 		else {
 			Physical Prize = new Physical();
 			int Money_change = Prize.displayWinnings(object, Guess_player);
 			int Money_new = object.Money_getter() + Money_change;
 			object.Money_setter(Money_new);
-			System.out.println(object.toString());
+			//System.out.println(object.toString());
+			JOptionPane.showMessageDialog(null, object.toString());
 			
 			
 		}
 		
-		System.out.println("The phrase to guess is: " + playingPhrase);	
+		GUI.currentPlayingPhrase.setText("The phrase to guess is: " + playingPhrase);
+		//System.out.println("The phrase to guess is: " + playingPhrase);	
 		//The Awards section	
 		if (playingPhrase.matches(gamePhrase)) {
-			System.out.println("You have solved the puzzle and won the game!");
+			JOptionPane.showMessageDialog(null, "You have solved the puzzle and won the game!");
 			return true;
 		}
 		else {

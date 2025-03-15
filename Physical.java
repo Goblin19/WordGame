@@ -1,4 +1,6 @@
 import java.util.Random;
+import javax.swing.JOptionPane;
+
 public class Physical implements Award{
 	String Awards[] = {"Car", "Television", "Xbox", "Fridge", "Boat"};
 	
@@ -13,10 +15,10 @@ public class Physical implements Award{
 	public int displayWinnings(Players object, boolean guess) {
 		boolean Result_game = guess;
 		if (Result_game == false) {
-			System.out.println( object.getFirst_name() +", no, that letter is not in the phrase. You could have won an " + getRandomPrize());
+			JOptionPane.showMessageDialog( null , object.getFirst_name() +", no, that letter is not in the phrase. You could have won an " + getRandomPrize());
 		}
 		else {
-			System.out.println( object.getFirst_name() + ", yes, that letter is in the phrase! You won an " + getRandomPrize() + "!");
+			JOptionPane.showMessageDialog( null , object.getFirst_name() + ", yes, that letter is in the phrase! You won an " + getRandomPrize() + "!");
 			
 		}
 		return 0;
