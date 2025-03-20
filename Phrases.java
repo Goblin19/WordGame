@@ -50,7 +50,7 @@ public class Phrases {
 					String NewPhrase = new String(CurrentPlayingPhrase);
 					//System.out.println(NewPhrase);
 					playingPhrase = NewPhrase;
-					//Gui.currentPlayingPhrase.setText(playingPhrase);
+					//GUI.currentPlayingPhrase.setText(playingPhrase);
 				}
 			}
 		}
@@ -64,8 +64,15 @@ public class Phrases {
 			int Money_change = Cash.displayWinnings(object, Guess_player);
 			int Money_new = object.Money_getter() + Money_change;
 			object.Money_setter(Money_new);
-			//System.out.println(object.toString());
-			JOptionPane.showMessageDialog(null, object.toString());
+			GUI.currentText = object.toString();
+			if (GUI.checkBox.isSelected() == true) {
+				GUI.textAdded = GUI.textAdded + "\n" + GUI.currentText;
+				GUI.textArea.setText(GUI.textAdded);
+			}
+			else {
+				GUI.textArea.setText(GUI.currentText);
+			}
+			//JOptionPane.showMessageDialog(null, object.toString());
 		}
 		else {
 			Physical Prize = new Physical();
@@ -73,7 +80,14 @@ public class Phrases {
 			int Money_new = object.Money_getter() + Money_change;
 			object.Money_setter(Money_new);
 			//System.out.println(object.toString());
-			JOptionPane.showMessageDialog(null, object.toString());
+			GUI.currentText = object.toString();
+			if (GUI.checkBox.isSelected() == true) {
+				GUI.textAdded = GUI.textAdded + "\n" + GUI.currentText;
+				GUI.textArea.setText(GUI.textAdded);
+			}
+			else {
+				GUI.textArea.setText(GUI.currentText);
+			}
 			
 			
 		}

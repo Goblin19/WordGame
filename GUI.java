@@ -1,6 +1,10 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
@@ -10,7 +14,10 @@ public class GUI implements ActionListener {
 	boolean playAgain;
 	int currentPlayerNumber;
 	int count;
+	String clearingText = "";
 	String playersAdded = "";
+	static String textAdded = "";
+	static String currentText = "";
 	
 	
 	//instantiating the classes
@@ -20,59 +27,101 @@ public class GUI implements ActionListener {
 	
 	
 	//setting up GUI components
-	static JLabel currentPlayingPhrase = new JLabel();
+	private JMenuBar menuBar;
+	private JMenu optionsMenu;
+	private JMenu aboutGame;
+	private JMenuItem aboutGameOption;
+	private JMenuItem addPlayerMenuItem;
+	private JMenuItem addHostMenuItem;
+	static JCheckBox checkBox;
 	private JButton takeTurn;
+	static JTextArea textArea;
+	static JLabel currentPlayingPhrase = new JLabel();
+	static JLabel totalText = new JLabel("Text");
 	private  JLabel playerCurrent =  new JLabel();
-	private JButton addPlayer;
-	private JButton hostPhrase;
-	private JFrame wordGame = new JFrame("Word Game");
 	private JLabel currentHost = new JLabel("Host: " + Host.getFirst_name() + Host.getLast_name());
-	//private JPanel panel = new JPanel();
+	private JScrollPane scrollPane;
+	private JPanel panel;
+	private JFrame wordGame = new JFrame("Word Game");
+	
 	
 	public void Gui() {
-		wordGame.setSize(700,700);
-		wordGame.setLayout(new FlowLayout());
+		wordGame.setSize(800,800);
 		wordGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		wordGame.setLayout(new BorderLayout());
+		
 		
 		//player_current = new JLabel("Current players: ");
 		playerCurrent.setText("Current Players: ");
 		
 		
-		//Testing panel
-		//panel = new JPanel();
-		//panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		//WordGame.add(panel);
+		//setting up the menu and options
+		menuBar = new JMenuBar();
+				
+		optionsMenu = new JMenu("Game");
+		aboutGame = new JMenu("About");
+				
+		checkBox = new JCheckBox("Save Messages");
+		addPlayerMenuItem = new JMenuItem("Add player");
+		addHostMenuItem = new JMenuItem("Add host and phrase?");
+		aboutGameOption = new JMenuItem("About");
+		addPlayerMenuItem.addActionListener(this);
+		addHostMenuItem.addActionListener(this);
+		aboutGameOption.addActionListener(this);
+		checkBox.setFocusable(false);
 		
+		aboutGame.setMnemonic(KeyEvent.VK_A);
+		optionsMenu.setMnemonic(KeyEvent.VK_G);
+		aboutGame.add(aboutGameOption);
+		optionsMenu.add(addPlayerMenuItem);
+		optionsMenu.add(addHostMenuItem);
+		optionsMenu.add(checkBox);
+		menuBar.add(aboutGame);
+		menuBar.add(optionsMenu);
+		
+		
+		//Making Take Turn Button
 		takeTurn = new JButton("Start Player Turn");
 		takeTurn.addActionListener(this);
 		takeTurn.setBounds(100, 100, 100, 100);
 		
 		
-		hostPhrase = new JButton();
-		hostPhrase.addActionListener(this);
-		hostPhrase.setBounds(100, 100, 100, 100);
-		hostPhrase.setText("add Host and Phrase?");
-	
+		//Setting up a proper text area
+		textArea = new JTextArea(100,200);
+		textArea.setLineWrap(true);
+		textArea.setEditable(false);
+		textArea.setVisible(true);
+		textArea.setForeground(new Color(0x00A2E8));
+		textArea.setBackground(Color.GRAY);
+		textArea.setFont(new Font("Comfortaa", Font.PLAIN, 20));
 		
-		addPlayer = new JButton();
-		addPlayer.addActionListener(this);
-		addPlayer.setBounds(100, 100, 100, 100);
-		addPlayer.setText("add player?");
+		
+		//Making panel
+		panel = new JPanel();
+		panel.setBounds(0, 0, 100, 100);
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.add(takeTurn);
+		panel.add(currentHost);
+		panel.add(playerCurrent);
+		panel.add(currentPlayingPhrase);
+		
+		
+		scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(100, 100, 300, 300);
+		
 		
 		//adding elements and seeing the window
-		addPlayer.setVisible(true);
-		wordGame.add(addPlayer);
-		wordGame.add(hostPhrase);
-		wordGame.add(takeTurn);
-		wordGame.add(currentHost);
-		wordGame.add(playerCurrent);
-		//panel.add(player_current);
-		//panel.add(addPlayer);
+		wordGame.setJMenuBar(menuBar);
+		wordGame.add(panel, BorderLayout.NORTH);
+		wordGame.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setVisible(true);
 		playerCurrent.setVisible(true);
-		//panel.add(addPlayer);
-		//panel.add(player_current);
-		wordGame.setVisible(true);
+		totalText.setVisible(true);
 		
+		
+		
+		wordGame.pack();
+		wordGame.setVisible(true);
 		
 	}
 	
@@ -81,7 +130,11 @@ public class GUI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source == addPlayer) {
+		if (source ==  aboutGameOption) {
+			JOptionPane.showMessageDialog(null, "I chose the border layout manager because it is very easy to work with and can be resized nicely.");
+		}
+		
+		if (source == addPlayerMenuItem) {
 			//Setting count and player in array
 			String firstName = JOptionPane.showInputDialog("enter your first name");
 			String lastName = JOptionPane.showInputDialog("enter your last name (leave blank if you don't want to add one)");
@@ -121,7 +174,7 @@ public class GUI implements ActionListener {
 		}
 		
 	
-	if(source == hostPhrase) {
+	if(source == addHostMenuItem) {
 		//setting up host
 		String firstName = JOptionPane.showInputDialog("enter the hosts first name");
 		String lastName = JOptionPane.showInputDialog("enter the hosts last name (leave blank if you don't want to add one)");
@@ -142,7 +195,6 @@ public class GUI implements ActionListener {
 		//repainting the frame
 		currentPlayingPhrase.setText("The phrase to guess is: " + Phrases.playingPhrase);
 		currentPlayingPhrase.setVisible(true);
-		wordGame.add(currentPlayingPhrase);
 		wordGame.revalidate();
 		wordGame.repaint();
 	}
@@ -166,9 +218,10 @@ public class GUI implements ActionListener {
 				 currentPlayers = new Players[1];
 				 currentPlayerNumber = -1;
 				 count = 0;
-				 playersAdded = "";
+				 playersAdded = clearingText;
 				 playerCurrent.setText("Current players: ");
-				 currentPlayingPhrase.setText("");
+				 currentPlayingPhrase.setText("The phrase to guess is :");
+				 textArea.setText(clearingText);
 			}
 		}
 		
