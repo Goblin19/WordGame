@@ -10,9 +10,9 @@ public class Sound {
 	URL soundURL[] = new URL[3];
 
 	public Sound() {
-		soundURL[0] = getClass().getResource("Rcs/253886__themusicalnomad__negative_beeps.wav");
-		soundURL[1] = getClass().getResource("Rcs/109662__grunz__success.wav");
-		soundURL[2] = getClass().getResource("Rcs/GameShowBackground.wav");
+		soundURL[0] = getClass().getResource("253886__themusicalnomad__negative_beeps.wav");
+		soundURL[1] = getClass().getResource("109662__grunz__success.wav");
+		soundURL[2] = getClass().getResource("GameShowBackground.wav");
 		
 	}
 	
