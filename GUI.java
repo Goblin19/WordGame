@@ -1,11 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
+import java.net.URL;
 import javax.swing.*;
 
 public class GUI implements ActionListener {
@@ -24,12 +26,14 @@ public class GUI implements ActionListener {
 	Hosts Host = new Hosts("Bob", "Barker");
 	Players[] currentPlayers = new Players[count+1];
 	Turn playerTurn = new Turn();
+	Sound Sounds = new Sound();
 	
 	
 	//setting up GUI components
 	private JMenuBar menuBar;
 	private JMenu optionsMenu;
 	private JMenu aboutGame;
+	private JMenuItem creditsPhotos;
 	private JMenuItem aboutGameOption;
 	private JMenuItem addPlayerMenuItem;
 	private JMenuItem addHostMenuItem;
@@ -45,10 +49,12 @@ public class GUI implements ActionListener {
 	private JFrame wordGame = new JFrame("Word Game");
 	
 	
+	
 	public void Gui() {
-		wordGame.setSize(800,800);
+		wordGame.setSize(800,1000);
 		wordGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		wordGame.setLayout(new BorderLayout());
+		
 		
 		
 		//player_current = new JLabel("Current players: ");
@@ -65,14 +71,17 @@ public class GUI implements ActionListener {
 		addPlayerMenuItem = new JMenuItem("Add player");
 		addHostMenuItem = new JMenuItem("Add host and phrase?");
 		aboutGameOption = new JMenuItem("About");
+		creditsPhotos = new JMenuItem("Attribution"); 
 		addPlayerMenuItem.addActionListener(this);
 		addHostMenuItem.addActionListener(this);
 		aboutGameOption.addActionListener(this);
+		creditsPhotos.addActionListener(this);
 		checkBox.setFocusable(false);
 		
 		aboutGame.setMnemonic(KeyEvent.VK_A);
 		optionsMenu.setMnemonic(KeyEvent.VK_G);
 		aboutGame.add(aboutGameOption);
+		aboutGame.add(creditsPhotos);
 		optionsMenu.add(addPlayerMenuItem);
 		optionsMenu.add(addHostMenuItem);
 		optionsMenu.add(checkBox);
@@ -113,15 +122,16 @@ public class GUI implements ActionListener {
 		//adding elements and seeing the window
 		wordGame.setJMenuBar(menuBar);
 		wordGame.add(panel, BorderLayout.NORTH);
-		wordGame.add(scrollPane, BorderLayout.CENTER);
+		wordGame.add(scrollPane, BorderLayout.WEST);
 		scrollPane.setVisible(true);
 		playerCurrent.setVisible(true);
 		totalText.setVisible(true);
 		
 		
-		
 		wordGame.pack();
 		wordGame.setVisible(true);
+		
+		Sounds.backgroundSound(2);
 		
 	}
 	
@@ -130,6 +140,15 @@ public class GUI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+		
+		if(source == creditsPhotos) {
+			JOptionPane.showMessageDialog(null, "Credits for the photos and music used: " +"\n" + "https://pixabay.com/photos/buick-oldtimer-old-car-blue-car-1400243/" +"\n" + 
+					"https://pixabay.com/photos/tv-android-tv-television-network-627876/" + "\n" + "https://pixabay.com/photos/video-game-console-video-game-play-2202663/" + "\n" + 
+					"https://pixabay.com/photos/refrigerator-architecture-design-6703775/" + "\n" + "https://pixabay.com/photos/speed-boat-sea-water-speed-fun-1584136/" + "\n" +
+					"success.wav by grunz -- https://freesound.org/s/109662/ -- License: Attribution 3.0" + "\n" + "Funk Lead Loop by ehohnke -- https://freesound.org/s/376416/ -- License: Creative Commons 0" + "\n" +
+					"negative_beeps.wav by themusicalnomad -- https://freesound.org/s/253886/ -- License: Creative Commons 0");
+		}
+		
 		if (source ==  aboutGameOption) {
 			JOptionPane.showMessageDialog(null, "I chose the border layout manager because it is very easy to work with and can be resized nicely.");
 		}
@@ -229,5 +248,6 @@ public class GUI implements ActionListener {
 	}
 	
 	}
+	
 	
 }
